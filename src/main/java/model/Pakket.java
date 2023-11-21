@@ -1,6 +1,6 @@
 package model;
 
-public class Pakket {
+public class Pakket implements PakketInterface{
 
     private String naamVanKind;
     private String cadeau;
@@ -19,5 +19,15 @@ public class Pakket {
     @Override
     public String toString() {
         return String.format("{Kind: %s; cadeau: %s; gewicht: %d}", naamVanKind, cadeau, gewicht);
+    }
+
+    @Override
+    public int compareTo(PakketInterface anderePakketInterface) {
+        if (this.gewicht > anderePakketInterface.getGewicht()){
+            return 1;
+        } else if (this.gewicht < anderePakketInterface.getGewicht()){
+            return -1;
+        }
+        return 0;
     }
 }

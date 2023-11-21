@@ -18,7 +18,11 @@ public class PakkettenBus {
     }
 
     public void laadPakket(Pakket pakket) {
-
+        int toelaatbaarGewicht = maximumGewicht - totaalGewicht;
+        if (pakket.getGewicht() >= 0 && pakket.getGewicht() < toelaatbaarGewicht){
+            lading.add(pakket);
+            totaalGewicht += pakket.getGewicht();
+        }
     }
 
     public List<Pakket> getLading() {

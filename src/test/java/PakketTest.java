@@ -1,5 +1,4 @@
-import model.Pakket;
-import model.PakkettenBus;
+import model.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PakketTest {
     private PakkettenBus testBus;
+    private BestelBus<Olifant> testBestelBusOlifant;
 
     @Test
     public void laadPakketMetNegatieveWaardeWeigeren() {
@@ -41,6 +41,44 @@ public class PakketTest {
 
     private void maakBus() {
         testBus = new PakkettenBus("Rode bus", 40);
+    }
+
+    private void maakOlfiantenBus(){
+        testBestelBusOlifant = new BestelBus<>(1000);
+    }
+
+    @Test
+    public void LaadTeZwareOlifant(){
+        maakOlfiantenBus();
+        Olifant fatso = new Olifant(1100);
+        testBestelBusOlifant.laadDing(fatso);
+        assertEquals(0, testBestelBusOlifant.getTotaalGewicht());
+    }
+
+    @Test
+    public void laadTweeLichteOlifantjes(){
+        maakOlfiantenBus();
+        Olifant tiny = new Olifant(100);
+        Olifant medi = new Olifant(800);
+        testBestelBusOlifant.laadDing(tiny);
+        testBestelBusOlifant.laadDing(medi);
+        assertEquals(900, testBestelBusOlifant.getTotaalGewicht());
+    }
+    @Test
+    public void ZoekZwaarsteDingMiddenWaarde(){
+        maakOlfiantenBus();
+        Olifant een = new Olifant(10);
+        Olifant twee = new Olifant(20);
+        Olifant drie = new Olifant(30);
+        Olifant vier = new Olifant(40);
+        Olifant vijf = new Olifant(50);
+        testBestelBusOlifant.laadDing(een);
+        testBestelBusOlifant.laadDing(twee);
+        testBestelBusOlifant.laadDing(vijf);
+        testBestelBusOlifant.laadDing(vier);
+        testBestelBusOlifant.laadDing(drie);
+        assertEquals(50, testBestelBusOlifant.zoekZwaarsteDing().getGewicht());
+
     }
 
 }

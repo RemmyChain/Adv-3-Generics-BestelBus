@@ -1,5 +1,6 @@
 package controller;
 
+import model.BestelBus;
 import model.Pakket;
 import model.PakketLezer;
 import model.PakkettenBus;
@@ -17,6 +18,13 @@ public class BusLauncher {
         for (Pakket p : lijstVanBestand) {
             kuBus.laadPakket(p);
         }
+
+        BestelBus<Pakket> vetteBus = new BestelBus<>(2000);
+        for (Pakket p : lijstVanBestand){
+            vetteBus.laadDing(p);
+        }
+
+        System.out.println(vetteBus.zoekZwaarsteDing());
 
 
 
